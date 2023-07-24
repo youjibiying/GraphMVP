@@ -67,6 +67,7 @@ def train(args, molecule_model_2D, device, loader, optimizer):
 
 
         CL_loss, CL_acc = dual_CL(molecule_2D_repr, molecule_3D_repr, args)
+        # TODO: remaining the distance between 
         AE_loss_1 = AE_2D_3D_model(molecule_2D_repr, molecule_3D_repr)
         AE_loss_2 = AE_3D_2D_model(molecule_3D_repr, molecule_2D_repr)
         AE_acc_1 = AE_acc_2 = 0
@@ -108,9 +109,9 @@ if __name__ == '__main__':
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(0)
         torch.cuda.set_device(args.device)
-
+    args.path = './datasets'
     if 'GEOM' in args.dataset:
-        data_root = '../datasets/{}/'.format(args.dataset) if args.input_data_dir == '' else '{}/{}/'.format(args.input_data_dir, args.dataset)
+        data_root = args.path+'/{}/'.format(args.dataset) if args.input_data_dir == '' else '{}/{}/'.format(args.input_data_dir, args.dataset)
         dataset = Molecule3DMaskingDataset(data_root, dataset=args.dataset, mask_ratio=args.SSL_masking_ratio)
     else:
         raise Exception

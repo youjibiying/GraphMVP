@@ -1,0 +1,6 @@
+datasets/
+datasets/chem_dataset.zip
+src_classification/*.pyc
+src_classification/__pycache__/*.pyc
+*.pyc
+.vscode/*
